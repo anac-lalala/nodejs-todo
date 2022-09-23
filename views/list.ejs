@@ -9,7 +9,7 @@
   </head>
   <body>
     <div id="heading" class="box">
-      <h1><%= day %></h1>
+      <h1><%= listTitle %></h1>
     </div>
     <div class="box">
       <% taskList.forEach((task)=>{ %>
@@ -26,7 +26,9 @@
           id="newTask"
           placeholder="Add New Task"
         />
-        <button type="submit">+</button>
+        <button type="submit" name="listName" value="<%= listTitle %>">
+          +
+        </button>
       </form>
     </div>
   </body>

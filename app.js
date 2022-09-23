@@ -11,19 +11,29 @@ app.use(
 app.use(express.static("public"));
 
 let dailyTasks = ["Buy food", "Cook foof", "Eat Food"];
+let workTasks = [];
 
 app.get("/", function (req, res) {
   const today = new Date();
   const currentDay = today.toLocaleString("en-us", { weekday: "long" });
 
-  res.render("list", { day: currentDay, taskList: dailyTasks });
+  res.render("list", { listTitle: currentDay, taskList: dailyTasks });
+});
+
+app.get("/work", function (req, res) {
+  res.render("list", { listTitle: "Work", taskList: workTasks });
 });
 
 app.post("/", function (req, res) {
   const newTask = req.body.newTask;
-  dailyTasks.push(newTask);
 
-  res.redirect("/");
+  if (req.body.listName === "Work") {
+    workTasks.push(newTask);
+    res.redirect("/work");
+  } else {
+    dailyTasks.push(newTask);
+    res.redirect("/");
+  }
 });
 
 app.listen(3000, function () {
