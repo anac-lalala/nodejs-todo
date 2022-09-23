@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const date = require(__dirname + "/date.js");
 
 const app = express();
 app.set("view engine", "ejs");
@@ -10,12 +11,11 @@ app.use(
 );
 app.use(express.static("public"));
 
-let dailyTasks = ["Buy food", "Cook foof", "Eat Food"];
-let workTasks = [];
+const dailyTasks = ["Buy food", "Cook foof", "Eat Food"];
+const workTasks = [];
 
 app.get("/", function (req, res) {
-  const today = new Date();
-  const currentDay = today.toLocaleString("en-us", { weekday: "long" });
+  const currentDay = date.getDate();
 
   res.render("list", { listTitle: currentDay, taskList: dailyTasks });
 });
