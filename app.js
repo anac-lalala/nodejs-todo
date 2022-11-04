@@ -1,7 +1,10 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const _ = require("lodash");
+
+dotenv.config();
 
 const app = express();
 app.set("view engine", "ejs");
@@ -12,7 +15,7 @@ app.use(
 );
 app.use(express.static("public"));
 
-mongoose.connect("mongodb://localhost:27017/todolistDB", {
+mongoose.connect(process.env.DB, {
   useNewUrlParser: true,
 });
 
@@ -150,6 +153,6 @@ app.post("/delete", function (req, res) {
   }
 });
 
-app.listen(3000, function () {
+app.listen(process.env.PORT, function () {
   console.log("Server started on por 3000 🏁");
 });
